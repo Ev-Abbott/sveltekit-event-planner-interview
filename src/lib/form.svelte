@@ -20,6 +20,9 @@
 
 	let isEditMode = $state(Boolean(initialData));
 	let isSubmitting = $state(false);
+
+	// this date needs to match the format expected for `min` prop
+	const nowDate = new Date().toISOString().slice(0, 16);
 </script>
 
 <div>
@@ -59,8 +62,10 @@
 		></textarea>
 		<div class="flex flex-col">
 			<label for="date">Date</label>
+			<input type="hidden" name="nowDate" value={nowDate} />
 			<input
 				bind:value={formState.date}
+				min={nowDate}
 				type="datetime-local"
 				id="date"
 				name="date"
