@@ -1,4 +1,5 @@
-import { fetchEventById } from '$lib/server/remote-events';
+import { deleteEventById, fetchEventById } from '$lib/server/remote-events';
+import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -7,4 +8,25 @@ export const load: PageServerLoad = async ({ params }) => {
 	return {
 		event: fetchEventById(eventId)
 	};
+};
+
+export const actions = {
+	delete: async ({ request }) => {
+		const data = await request.formData();
+		const rawEventId = data.get('eventId')?.toString();
+
+		if (!rawEventId) {
+			error(400, 'No event id provided');
+		}
+
+		const eventId = parseInt(rawEventId, 10);
+		const wasEventDeleted = await deleteEventById(eventId);
+
+		// We can interpret a falsey server response as not found
+		if (!wasEventDeleted) {
+			error(404, `No event found for id: ${eventId}`);
+		}
+
+		redirect(303, `/`);
+	}
 };

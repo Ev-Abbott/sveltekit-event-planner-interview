@@ -11,13 +11,17 @@
 {#await data.events}
 	<p>Loading...</p>
 {:then events}
-	{#each events as event}
-		<div>
-			<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
-			<p>{event.description}</p>
-			<p>{event.date}</p>
-		</div>
-	{/each}
+	<ul>
+		{#each events as event}
+			<li>
+				<a role="button" href="/{event.id}">
+					<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
+					<p>{event.description}</p>
+					<p>{event.date}</p>
+				</a>
+			</li>
+		{/each}
+	</ul>
 {:catch}
 	<p>There was an error with loading the events</p>
 {/await}
