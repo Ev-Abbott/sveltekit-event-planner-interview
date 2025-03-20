@@ -1,19 +1,16 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import type { Event } from './server/remote-events';
 
-	interface FormData {
-		title: string;
-		description: string;
-		date: string;
-	}
+	type EventFormData = Omit<Event, 'id'>;
 
 	let {
 		initialData
 	}: {
-		initialData?: FormData;
+		initialData?: EventFormData;
 	} = $props();
 
-	let formState = $state<FormData>(
+	let formState = $state<EventFormData>(
 		initialData ?? {
 			title: '',
 			description: '',

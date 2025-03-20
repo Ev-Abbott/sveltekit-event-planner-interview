@@ -1,14 +1,5 @@
-import { deleteEventById, fetchEventById } from '$lib/server/remote-events';
+import { deleteEventById } from '$lib/server/remote-events';
 import { error, redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-
-export const load: PageServerLoad = async ({ params }) => {
-	const eventId = parseInt(params.eventId);
-
-	return {
-		event: fetchEventById(eventId)
-	};
-};
 
 export const actions = {
 	delete: async ({ request }) => {

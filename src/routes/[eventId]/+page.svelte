@@ -28,6 +28,14 @@
 				<p>{event.description}</p>
 				<p>{event.date}</p>
 				<input type="hidden" name="eventId" value={event.id} />
+				<a
+					aria-disabled={isDeleting}
+					class="btn aria-disabled:btn-disabled"
+					role="button"
+					href="/{event.id}/edit"
+				>
+					Edit
+				</a>
 				<button class="btn" disabled={isDeleting}>Delete</button>
 				{#if isDeleting}
 					<p>Deleting event...</p>
