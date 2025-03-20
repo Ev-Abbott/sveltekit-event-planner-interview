@@ -1,19 +1,19 @@
 import { updateEventById } from '$lib/server/remote-events';
+import { isFormError, validateFormData } from '$lib/validation';
 import type { Actions } from './$types';
 import { error, redirect } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	default: async ({ request, params }) => {
 		const formdata = await request.formData();
-		const title = formdata.get('title')?.toString();
-		const description = formdata.get('description')?.toString();
-		const date = formdata.get('date')?.toString();
-		if (!title || !date) {
-			error(400, 'Title and Date are required');
+		const validatedData = validateFormData(formdata);
+
+		if (isFormError(validatedData)) {
+			error(validatedData.status, validatedData.message);
 		}
 
 		const eventId = parseInt(params.eventId, 10);
-		const result = await updateEventById(eventId, { title, description, date });
+		const result = await updateEventById(eventId, validatedData);
 
 		if (!result) {
 			error(404, `No event found for id: ${eventId}`);
