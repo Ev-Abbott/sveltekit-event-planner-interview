@@ -3,6 +3,14 @@
 	let { children } = $props();
 </script>
 
-<div class="flex items-center justify-center">
-	{@render children()}
+<div class="flex flex-col min-h-dvh">
+	<nav class="p-4">
+		<ul class="flex gap-4">
+			<li><a class="link" href="/">Home</a></li>
+			<li><a class="link" href="/newevent" role="button">Add Event</a></li>
+		</ul>
+	</nav>
+	<div class="flex items-center justify-center grow">
+		{@render children()}
+	</div>
 </div>
