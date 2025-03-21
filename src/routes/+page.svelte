@@ -4,8 +4,8 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<div>
-	<h1 class="text-3xl font-bold">Events</h1>
+<div class="grow">
+	<h1 class="text-3xl font-bold text-left">Events</h1>
 
 	{#await data.events}
 		<p>Loading...</p>
@@ -23,9 +23,9 @@
 				{/each}
 			</ul>
 		{:else}
-			<p>There are currently no events. Please add an event</p>
+			<p class="text-error">There are currently no events. Please add an event</p>
 		{/if}
 	{:catch}
-		<p>There was an error with loading the events</p>
+		<p class="text-error">There was an error with loading the events</p>
 	{/await}
 </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
+	import { formatDate } from '$lib';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -8,12 +9,15 @@
 	let isDeleting = $state(false);
 </script>
 
-<div>
+<div class="grow">
+	<h1 class="text-3xl font-bold text-lef text-white">Event Details</h1>
+	<hr class="pb-2" />
 	{#await data.event}
 		<p>Loading...</p>
 	{:then event}
 		{#if event}
 			<form
+				class="flex flex-col gap-2"
 				method="POST"
 				action="?/delete"
 				use:enhance={() => {
@@ -24,27 +28,37 @@
 					};
 				}}
 			>
-				<h2 class="text-lg font-bold">{event.id}: {event.title}</h2>
-				<p>{event.description}</p>
-				<p>{event.date}</p>
-				<input type="hidden" name="eventId" value={event.id} />
+				<h2 class=" text-lg font-bold">
+					#{event.id}: <span class="text-white font-normal">{event.title}</span>
+				</h2>
+				<div>
+					<p class="font-bold">
+						Description: <span class="text-white font-normal">{event.description}</span>
+					</p>
+					<p class="font-bold">
+						Date: <span class="text-white font-normal">{formatDate(event.date)}</span>
+					</p>
+					<input type="hidden" name="eventId" value={event.id} />
+				</div>
 				<a
 					aria-disabled={isDeleting}
-					class="btn aria-disabled:btn-disabled"
+					class="btn btn-primary aria-disabled:btn-disabled text-white"
 					role="button"
 					href="/{event.id}/edit"
 				>
 					Edit
 				</a>
-				<button class="btn" disabled={isDeleting}>Delete</button>
+				<button class="btn btn-error" disabled={isDeleting}>Delete</button>
 				{#if isDeleting}
 					<p>Deleting event...</p>
 				{/if}
 			</form>
 		{:else}
-			<p>Sorry, there is no event for id: {page.params.eventId}</p>
+			<p class="text-error">Sorry, there is no event for id: {page.params.eventId}</p>
 		{/if}
 	{:catch}
-		<p>Sorry, something went wrong when fetching event for id: {page.params.eventId}</p>
+		<p class="text-error">
+			Sorry, something went wrong when fetching event for id: {page.params.eventId}
+		</p>
 	{/await}
 </div>

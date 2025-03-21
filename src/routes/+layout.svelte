@@ -10,7 +10,7 @@
 			<li><a class="link" href="/newevent" role="button">Add Event</a></li>
 		</ul>
 	</nav>
-	<div class="flex items-center justify-center grow">
+	<div class="w-8/12 flex items-center justify-center grow self-center">
 		{@render children()}
 	</div>
 </div>
