@@ -1,7 +1,7 @@
 import { updateEventById } from '$lib/server/remote-events';
 import { isFormError, validateFormData } from '$lib/validation';
 import type { Actions } from './$types';
-import { error, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	default: async ({ request, params }) => {
@@ -9,7 +9,7 @@ export const actions: Actions = {
 		const validatedData = validateFormData(formdata);
 
 		if (isFormError(validatedData)) {
-			error(validatedData.status, validatedData.message);
+			return fail(validatedData.status, { message: validatedData.message });
 		}
 
 		const eventId = parseInt(params.eventId, 10);
