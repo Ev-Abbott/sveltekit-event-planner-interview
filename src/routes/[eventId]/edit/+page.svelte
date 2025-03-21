@@ -6,7 +6,7 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<div class="flex items-center justify-center">
+<div class="grow w-full">
 	{#await data.event}
 		<p>Loading...</p>
 	{:then event}

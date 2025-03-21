@@ -9,8 +9,8 @@
 	let isDeleting = $state(false);
 </script>
 
-<div class="grow">
-	<h1 class="text-3xl font-bold text-lef text-white">Event Details</h1>
+<div class="grow w-full">
+	<h1 class="text-3xl font-bold text-left text-white">Event Details</h1>
 	<hr class="pb-2" />
 	{#await data.event}
 		<p>Loading...</p>
@@ -28,7 +28,7 @@
 					};
 				}}
 			>
-				<h2 class=" text-lg font-bold">
+				<h2 class="text-lg font-bold">
 					#{event.id}: <span class="text-white font-normal">{event.title}</span>
 				</h2>
 				<div>

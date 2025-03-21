@@ -27,7 +27,8 @@
 </script>
 
 <div>
-	<h1 class="font-bold text-center text-4xl">{isEditMode ? 'Edit' : 'Create'} Event</h1>
+	<h1 class="text-white font-bold text-left text-4xl">{isEditMode ? 'Edit' : 'Create'} Event</h1>
+	<hr class="pb-2" />
 	<form
 		class="flex flex-col justify-center gap-4"
 		method="POST"

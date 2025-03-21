@@ -2,6 +2,6 @@
 	import Form from '$lib/form.svelte';
 </script>
 
-<div class="flex items-center justify-center">
+<div class="grow w-full">
 	<Form />
 </div>
